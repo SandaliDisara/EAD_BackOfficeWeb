@@ -1,0 +1,25 @@
+/* sidebarStyles.css */
+.sidebar {
+    background-color: #7540aa; /* Dark purple */
+    color: white;
+}
+  
+.sidebar a {
+    color: white;
+}
+  
+.sidebar a:hover {
+    color: #ddd;
+}
+  
+.sidebar .nav-link.active {
+    background-color: white !important; /* Force white background */
+    color: #7540aa !important; /* Text color stays purple */
+    font-weight: bold;
+}
+  
+.sidebar .nav-link {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}

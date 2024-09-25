@@ -1,0 +1,14 @@
+.header {
+    background-color: #621f92; /* Dark purple */
+    color: #fff; /* White text */
+  }
+  
+  .header input {
+    color: #000; /* Black text inside input */
+  }
+  
+  .header p,
+  .header small {
+    color: #fff; /* White text */
+  }
+  
