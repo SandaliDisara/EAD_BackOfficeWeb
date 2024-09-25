@@ -25,14 +25,23 @@ const BackOfficersTable = () => {
     }
   };
 
-  // Handle delete back officer
-  const handleDelete = async (id) => {
+  // Handle delete back officer and vendor
+  const handleDelete = async (id, role) => {
     try {
+      // If the role is "Vendor", delete the vendor from the Vendor collection first
+      if (role === 'Vendor') {
+        await axios.delete(`http://localhost:5228/api/Vendor/${id}`); // Update with the correct Vendor API endpoint
+      }
+
+      // Delete the back officer from the BackOfficer collection
       await axios.delete(`http://localhost:5228/api/BackOfficer/${id}`); // Update URL based on your API
       setBackOfficers(backOfficers.filter(bo => bo.id !== id)); // Remove deleted officer from UI
       setFilteredBackOfficers(filteredBackOfficers.filter(bo => bo.id !== id)); // Remove from filtered list too
+
+      alert('Deleted successfully!');
     } catch (error) {
-      console.error('Error deleting back officer:', error);
+      console.error('Error deleting back officer or vendor:', error);
+      alert('Failed to delete back officer or vendor.');
     }
   };
 
@@ -106,7 +115,9 @@ const BackOfficersTable = () => {
                   <td>{backOfficer.isActive ? 'Active' : 'Inactive'}</td>
                   <td>
                     <Button variant="link" className="text-primary">Edit</Button>
-                    <Button variant="link" className="text-danger" onClick={() => handleDelete(backOfficer.id)}>Delete</Button>
+                    <Button variant="link" className="text-danger" onClick={() => handleDelete(backOfficer.id, backOfficer.role)}>
+                      Delete
+                    </Button>
                   </td>
                 </tr>
               ))}

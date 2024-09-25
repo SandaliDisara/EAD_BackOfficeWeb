@@ -20,6 +20,22 @@ const VendorsTable = () => {
     fetchVendors();
   }, []);
 
+  // Function to handle delete vendor
+  const handleDelete = async (id) => {
+    try {
+      // Call the DELETE API
+      await axios.delete(`http://localhost:5228/api/Vendor/${id}`);
+      
+      // Remove the deleted vendor from the state
+      setVendors(vendors.filter(vendor => vendor.id !== id));
+      
+      alert("Vendor deleted successfully!");
+    } catch (error) {
+      console.error('Error deleting vendor:', error);
+      alert('Failed to delete vendor');
+    }
+  };
+
   return (
     <div className="p-4 bg-white shadow-sm">
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -40,10 +56,12 @@ const VendorsTable = () => {
             <tr key={vendor.id}>
               <td>{vendor.name}</td>
               <td>{vendor.description}</td>
-              <td>{vendor.averageRanking ? vendor.averageRanking.toFixed(2) : 'N/A'}</td> {/* Showing average ranking */}
+              <td>{vendor.averageRanking ? vendor.averageRanking.toFixed(2) : 'N/A'}</td>
               <td>
                 <Button variant="link" className="text-primary">Edit</Button>
-                <Button variant="link" className="text-danger">Delete</Button>
+                <Button variant="link" className="text-danger" onClick={() => handleDelete(vendor.id)}>
+                  Delete
+                </Button>
               </td>
             </tr>
           ))}

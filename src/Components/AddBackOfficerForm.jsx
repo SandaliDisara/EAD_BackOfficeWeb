@@ -22,30 +22,29 @@ const AddBackOfficerForm = ({ onBackOfficerAdded }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     try {
-      // Add the back officer to the BackOfficer collection
-      await axios.post('http://localhost:5228/api/BackOfficer', {
-        name: formData.name,
-        username: formData.username,
-        password: formData.password,
-        role: formData.role,
-      });
-
-      // If the role is Vendor, add the record to the Vendor collection with description
-      if (formData.role === 'Vendor') {
-        await axios.post('http://localhost:5228/api/Vendor', {
-          name: formData.name,
-          description: formData.description, // Include the description for Vendor
-        });
-      }
-
-      alert('New Back Officer added successfully!');
-      onBackOfficerAdded(); // Callback to refresh the list and return to table
+      // Step 1: Create the Back Officer and get the ID
+      const backOfficerResponse = await axios.post('http://localhost:5228/api/BackOfficer', formData);
+      const backOfficerId = backOfficerResponse.data.id; // Assuming this returns the new ID
+  
+      // Step 2: Create the Vendor using the same ID
+      const vendorData = {
+        ...formData,  // Copy other form data like name, description
+        id: backOfficerId, // Use the same ID for the Vendor
+        description: formData.description, // Assuming 'description' field exists for Vendor
+      };
+      
+      await axios.post('http://localhost:5228/api/Vendor', vendorData);
+      
+      alert('Vendor and Back Officer created successfully!');
+      onBackOfficerAdded(); // Callback to refresh the list
     } catch (error) {
-      console.error('Error adding back officer:', error);
-      alert('Failed to add back officer');
+      console.error('Error adding back officer or vendor:', error);
+      alert('Failed to add back officer or vendor');
     }
   };
+  
 
   return (
     <div className="p-4 bg-white shadow-sm position-relative">
