@@ -3,6 +3,7 @@ import Sidebar from './Components/SideBar';
 import Header from './Components/Header';
 import ProductsTable from './Components/ProductsTable';
 import BackOfficersTable from './Components/BackOfficersTable';  // Correct import path
+import VendorsTable from './Components/VendorsTable';
 import 'bootstrap/dist/css/bootstrap.min.css';  // Import Bootstrap styles
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
         return <ProductsTable />;
       case 'BackOfficers':
         return <BackOfficersTable />;
+      case 'Vendors':
+        return <VendorsTable/>;
       default:
         return <ProductsTable />;
     }
