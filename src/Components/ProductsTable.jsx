@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import axios from 'axios';
+import '../Styles/tablesRender.css';
 
 const ProductsTable = () => {
   const [products, setProducts] = useState([]);
@@ -34,7 +35,7 @@ const ProductsTable = () => {
       <div className="d-flex justify-content-between mb-3">
         <h4>Products</h4>
         <div>
-          <Button variant="primary" className="mr-2">Add New</Button>
+        <Button className="purple-button">Add New</Button>
         </div>
       </div>
 

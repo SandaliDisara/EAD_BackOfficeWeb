@@ -1,0 +1,11 @@
+.purple-button {
+    background-color: #7540aa;
+    border-color: #7540aa;
+    color: white; /* Set text color to white */
+  }
+  
+  .purple-button:hover {
+    background-color: #5e3384; /* Darker purple for hover state */
+    border-color: #5e3384;
+  }
+  
