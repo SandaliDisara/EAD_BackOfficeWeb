@@ -9,7 +9,7 @@ const VendorsTable = () => {
   useEffect(() => {
     const fetchVendors = async () => {
       try {
-        const response = await axios.get('http://localhost:5228/api/Vendor'); // Adjust API endpoint if needed
+        const response = await axios.get('http://192.168.1.229:5228/api/Vendor'); // Adjust API endpoint if needed
         const vendorList = response.data; // Assuming the data contains vendors
         setVendors(vendorList);
       } catch (error) {
@@ -24,7 +24,7 @@ const VendorsTable = () => {
   const handleDelete = async (id) => {
     try {
       // Call the DELETE API
-      await axios.delete(`http://localhost:5228/api/Vendor/${id}`);
+      await axios.delete(`http://192.168.1.229:5228/api/Vendor/${id}`);
       
       // Remove the deleted vendor from the state
       setVendors(vendors.filter(vendor => vendor.id !== id));

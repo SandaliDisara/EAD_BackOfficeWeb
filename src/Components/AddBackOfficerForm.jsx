@@ -24,20 +24,23 @@ const AddBackOfficerForm = ({ onBackOfficerAdded }) => {
     e.preventDefault();
     
     try {
-      // Step 1: Create the Back Officer and get the ID
-      const backOfficerResponse = await axios.post('http://localhost:5228/api/BackOfficer', formData);
+      //Create the Back Officer and get the ID
+      const backOfficerResponse = await axios.post('http://192.168.1.229:5228/api/BackOfficer', formData);
       const backOfficerId = backOfficerResponse.data.id; // Assuming this returns the new ID
   
-      // Step 2: Create the Vendor using the same ID
-      const vendorData = {
-        ...formData,  // Copy other form data like name, description
-        id: backOfficerId, // Use the same ID for the Vendor
-        description: formData.description, // Assuming 'description' field exists for Vendor
-      };
-      
-      await axios.post('http://localhost:5228/api/Vendor', vendorData);
-      
-      alert('Vendor and Back Officer created successfully!');
+      // If the selected role is "Vendor", also create the Vendor using the same ID
+      if (formData.role === 'Vendor') {
+        const vendorData = {
+          ...formData, // Copy other form data like name, description
+          id: backOfficerId, // Use the same ID for the Vendor
+          description: formData.description, // Assuming 'description' field exists for Vendor
+        };
+
+        await axios.post('http://192.168.1.229:5228/api/Vendor', vendorData);
+        alert('Vendor and Back Officer created successfully!');
+      } else {
+        alert('Back Officer created successfully!');
+      }
       onBackOfficerAdded(); // Callback to refresh the list
     } catch (error) {
       console.error('Error adding back officer or vendor:', error);

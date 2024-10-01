@@ -17,7 +17,7 @@ const BackOfficersTable = () => {
 
   const fetchBackOfficers = async () => {
     try {
-      const response = await axios.get('http://localhost:5228/api/BackOfficer'); // Update URL based on your API
+      const response = await axios.get('http://192.168.1.229:5228/api/BackOfficer'); // Update URL based on your API
       setBackOfficers(response.data); // Set the fetched back officers to the state
       setFilteredBackOfficers(response.data); // Initially set filtered back officers to all officers
     } catch (error) {
@@ -30,11 +30,11 @@ const BackOfficersTable = () => {
     try {
       // If the role is "Vendor", delete the vendor from the Vendor collection first
       if (role === 'Vendor') {
-        await axios.delete(`http://localhost:5228/api/Vendor/${id}`); // Update with the correct Vendor API endpoint
+        await axios.delete(`http://192.168.1.229:5228/api/Vendor/${id}`); // Update with the correct Vendor API endpoint
       }
 
       // Delete the back officer from the BackOfficer collection
-      await axios.delete(`http://localhost:5228/api/BackOfficer/${id}`); // Update URL based on your API
+      await axios.delete(`http://192.168.1.229:5228/api/BackOfficer/${id}`); // Update URL based on your API
       setBackOfficers(backOfficers.filter(bo => bo.id !== id)); // Remove deleted officer from UI
       setFilteredBackOfficers(filteredBackOfficers.filter(bo => bo.id !== id)); // Remove from filtered list too
 
