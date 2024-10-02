@@ -5,11 +5,13 @@ import axios from 'axios';
 const VendorsTable = () => {
   const [vendors, setVendors] = useState([]);
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // Fetch vendors from API on component load
   useEffect(() => {
     const fetchVendors = async () => {
       try {
-        const response = await axios.get('http://192.168.1.229:5228/api/Vendor'); // Adjust API endpoint if needed
+        const response = await axios.get(`${baseUrl}api/Vendor`); // Adjust API endpoint if needed
         const vendorList = response.data; // Assuming the data contains vendors
         setVendors(vendorList);
       } catch (error) {
@@ -24,7 +26,7 @@ const VendorsTable = () => {
   const handleDelete = async (id) => {
     try {
       // Call the DELETE API
-      await axios.delete(`http://192.168.1.229:5228/api/Vendor/${id}`);
+      await axios.delete(`http://192.168.51.122:5228/api/Vendor/${id}`);
       
       // Remove the deleted vendor from the state
       setVendors(vendors.filter(vendor => vendor.id !== id));
