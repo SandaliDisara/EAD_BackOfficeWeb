@@ -7,6 +7,8 @@ const CustomerAccounts = () => {
   const [filteredCustomers, setFilteredCustomers] = useState([]);
   const [selectedStatus, setSelectedStatus] = useState('All'); // State to filter by status
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // Fetch customers from API on component load
   useEffect(() => {
     fetchCustomers();
@@ -14,7 +16,7 @@ const CustomerAccounts = () => {
 
   const fetchCustomers = async () => {
     try {
-      const response = await axios.get('http://192.168.51.122:5228/api/Customer'); // Update URL based on your API
+      const response = await axios.get(`${baseUrl}api/Customer`); // Update URL based on your API
       setCustomers(response.data); // Set the fetched customers to the state
       setFilteredCustomers(response.data); // Initially set filtered customers to all customers
     } catch (error) {
@@ -38,7 +40,7 @@ const CustomerAccounts = () => {
   const handleActivate = async (id) => {
     try {
       // Update customer status to active
-      await axios.put(`http://192.168.51.122/api/Customer/activate/${id}`); // Update API call
+      await axios.put(`${baseUrl}api/Customer/activate/${id}`); // Update API call
       fetchCustomers(); // Refresh customer list after activation
       alert('User activated successfully!');
     } catch (error) {

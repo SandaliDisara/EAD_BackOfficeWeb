@@ -26,7 +26,7 @@ const VendorsTable = () => {
   const handleDelete = async (id) => {
     try {
       // Call the DELETE API
-      await axios.delete(`http://192.168.51.122:5228/api/Vendor/${id}`);
+      await axios.delete(`${baseUrl}api/Vendor/${id}`);
       
       // Remove the deleted vendor from the state
       setVendors(vendors.filter(vendor => vendor.id !== id));

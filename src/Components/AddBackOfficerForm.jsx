@@ -12,6 +12,8 @@ const AddBackOfficerForm = ({ onBackOfficerAdded }) => {
     description: '' // Adding description field for Vendor role
   });
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -25,7 +27,7 @@ const AddBackOfficerForm = ({ onBackOfficerAdded }) => {
     
     try {
       //Create the Back Officer and get the ID
-      const backOfficerResponse = await axios.post('http://192.168.1.229:5228/api/BackOfficer', formData);
+      const backOfficerResponse = await axios.post(`${baseUrl}api/BackOfficer`, formData);
       const backOfficerId = backOfficerResponse.data.id; // Assuming this returns the new ID
   
       // If the selected role is "Vendor", also create the Vendor using the same ID
@@ -36,7 +38,7 @@ const AddBackOfficerForm = ({ onBackOfficerAdded }) => {
           description: formData.description, // Assuming 'description' field exists for Vendor
         };
 
-        await axios.post('http://192.168.1.229:5228/api/Vendor', vendorData);
+        await axios.post(`${baseUrl}api/Vendor`, vendorData);
         alert('Vendor and Back Officer created successfully!');
       } else {
         alert('Back Officer created successfully!');
