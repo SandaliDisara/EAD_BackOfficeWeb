@@ -4,6 +4,7 @@ import Header from './Components/Header';
 import ProductsTable from './Components/ProductsTable';
 import BackOfficersTable from './Components/BackOfficersTable';  // Correct import path
 import VendorsTable from './Components/VendorsTable';
+import CustomerAccounts from './Components/CustomerAccounts';
 import 'bootstrap/dist/css/bootstrap.min.css';  // Import Bootstrap styles
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
         return <BackOfficersTable />;
       case 'Vendors':
         return <VendorsTable/>;
+      case 'CustomerAccounts':
+        return <CustomerAccounts />;
       default:
         return <ProductsTable />;
     }

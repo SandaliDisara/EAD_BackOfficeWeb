@@ -6,11 +6,13 @@ import '../Styles/tablesRender.css';
 const ProductsTable = () => {
   const [products, setProducts] = useState([]);
 
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+
   // Fetch products from API on component load
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5228/api/products'); // Update the URL based on your API
+        const response = await axios.get(`${baseUrl}api/products`); // Update the URL based on your API
         setProducts(response.data); // Set the fetched products to the state
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -23,7 +25,7 @@ const ProductsTable = () => {
   // Handle product deletion
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5228/api/products/${id}`); // Update the URL based on your API
+      await axios.delete(`${baseUrl}api/products/${id}`); // Update the URL based on your API
       setProducts(products.filter(product => product.id !== id)); // Remove deleted product from UI
     } catch (error) {
       console.error('Error deleting product:', error);

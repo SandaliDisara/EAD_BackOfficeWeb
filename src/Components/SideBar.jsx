@@ -61,6 +61,15 @@ const Sidebar = ({ setSelectedComponent }) => {
             Inventory
           </a>
         </li>
+        <li className="nav-item">
+          <a
+            href="#"
+            className={`nav-link ${activeItem === 'CustomerAccounts' ? 'active' : ''}`}
+            onClick={() => handleItemClick('CustomerAccounts')}
+          >
+            Customer Accounts
+          </a>
+        </li>
         <hr />
         <li className="nav-item">
           <a href="#" className="nav-link">Log Out</a>
