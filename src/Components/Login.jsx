@@ -14,16 +14,31 @@ const LoginComponent = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
+            console.log(`Sending request to ${baseUrl}api/BackOfficer/login`); // Debug URL
             const response = await axios.post(`${baseUrl}api/BackOfficer/login`, { username, password });
             
+            console.log('Response:', response); // Log response for debugging
+    
             if (response.status === 200) {
-                // Store login status (e.g., JWT token)
-                localStorage.setItem('backofficerToken', response.data.token);
-                
-                // Redirect to the dashboard
-                navigate('/dashboard');
+                // Store the backofficer details in localStorage
+                const backOfficerDetails = {
+                    id: response.data.id,
+                    username: response.data.username,
+                    role: response.data.role,
+                };
+
+                localStorage.setItem('backofficerDetails', JSON.stringify(backOfficerDetails));
+
+                // If the logged-in user is a Vendor, store vendorId in localStorage
+                if (response.data.role === 'Vendor') {
+                    localStorage.setItem('vendorId', response.data.id);
+                }
+
+                // Pass username, id and role to the dashboard via state
+                navigate('/dashboard', { state: { username: response.data.username, role: response.data.role, id: response.data.id } });
             }
         } catch (error) {
+            console.error('Login error:', error); // Log error details
             setErrorMessage('Invalid username or password');
         }
     };
