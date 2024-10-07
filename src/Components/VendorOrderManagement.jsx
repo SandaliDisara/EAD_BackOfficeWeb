@@ -5,6 +5,7 @@ import '../Styles/tablesRender.css'; // Add custom styles here if needed
 
 const VendorOrderManagement = () => {
   const [orders, setOrders] = useState([]);
+  const [customerNames, setCustomerNames] = useState({});
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [newStatus, setNewStatus] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -18,6 +19,8 @@ const VendorOrderManagement = () => {
       try {
         const response = await axios.get(`${baseUrl}api/Order/vendor/${vendorId}`); // Adjust the API URL
         setOrders(response.data); // Set fetched orders to the state
+        const customerIds = response.data.map(order => order.customerId);
+        fetchCustomerNames(customerIds); // Fetch customer names after fetching orders
       } catch (error) {
         console.error('Error fetching vendor orders:', error);
       }
@@ -25,6 +28,21 @@ const VendorOrderManagement = () => {
 
     fetchVendorOrders();
   }, [vendorId]);
+
+  // Fetch customer names for each customerId and store them in state
+  const fetchCustomerNames = async (customerIds) => {
+    const names = {};
+    try {
+      for (const id of customerIds) {
+        const response = await axios.get(`${baseUrl}api/Customer/${id}`); // Fetch customer details
+        const { firstName, lastName } = response.data;
+        names[id] = `${firstName} ${lastName}`; // Concatenate first and last name
+      }
+      setCustomerNames(names); // Update the state with customer names
+    } catch (error) {
+      console.error('Error fetching customer names:', error);
+    }
+  };
 
   // Handle product status change initiation
   const handleProductStatusChange = (order, product, status) => {
@@ -74,7 +92,7 @@ const VendorOrderManagement = () => {
         <thead>
           <tr>
             <th>Order ID</th>
-            <th>Customer ID</th>
+            <th>Customer</th>
             <th>Address</th>
             <th>Total Price</th>
             <th>Order Date</th>
@@ -85,7 +103,7 @@ const VendorOrderManagement = () => {
           {orders.map(order => (
             <tr key={order.id}>
               <td>{order.id}</td>
-              <td>{order.customerId}</td>
+              <td>{customerNames[order.customerId] || order.customerId}</td> 
               <td>{order.address}</td>
               <td>Rs.{order.totalPrice.toFixed(2)}</td>
               <td>{new Date(order.orderDate).toLocaleString()}</td>
