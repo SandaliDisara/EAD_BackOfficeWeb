@@ -1,7 +1,7 @@
 import React from 'react';
 import '../Styles/headerStyles.css'; // Import the CSS file
 
-const Header = () => {
+const Header = ({ username, role }) => {
   return (
     <div className="header d-flex justify-content-between p-3 shadow-sm">
       <input
@@ -11,14 +11,10 @@ const Header = () => {
       />
       <div className="d-flex align-items-center">
         <div className="text-right mr-3">
-          <p className="mb-0">Luke Asote</p>
-          <small>Administator</small>
+          {/* Display username and role or fallback values */}
+          <p className="mb-0">{username || 'Guest'}</p>
+          <small>{role || 'Unknown Role'}</small>
         </div>
-        <img
-          src="https://via.placeholder.com/40"
-          alt="Admin Avatar"
-          className="rounded-circle"
-        />
       </div>
     </div>
   );

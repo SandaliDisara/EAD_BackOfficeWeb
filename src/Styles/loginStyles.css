@@ -1,0 +1,58 @@
+.login-container {
+    display: flex;
+    height: 100vh;
+}
+
+.login-left {
+    background: linear-gradient(135deg, #6C63FF 0%, #F37335 100%); /* Add abstract gradient */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    padding: 50px;
+    text-align: center;
+}
+
+.login-left h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.login-right {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+}
+
+.login-form {
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.login-form h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.alert {
+    text-align: center;
+}
+
+.btn-block {
+    width: 100%;
+    background-color: #6C63FF; /* Add custom button color */
+    border-color: #6C63FF;
+}
+
+.btn-block:hover {
+    background-color: #533DA0; /* Darken on hover */
+    border-color: #533DA0;
+}
