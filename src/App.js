@@ -10,6 +10,7 @@ import VendorFeedbackTable from './Components/VendorFeedbackTable';
 import AllOrderManagement from './Components/AllOrderManagement';
 import VendorOrderManagement from './Components/VendorOrderManagement';
 import CustomerFeedbackTable from './Components/CustomerFeedbackTable';
+import NotificationsTable from './Components/NotificationsTable';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -48,6 +49,8 @@ const App = () => {
         return userRole === 'Vendor' ? <VendorOrderManagement /> : <ProductsTable />;
       case 'CustomerFeedback':  
         return userRole === 'Vendor' ? <CustomerFeedbackTable /> : <ProductsTable />;
+      case 'Notifications': 
+        return userRole === 'Administrator' || userRole === 'CSR' || userRole === 'Vendor' ? <NotificationsTable /> : <ProductsTable />;
       default:
         return <ProductsTable />;
     }

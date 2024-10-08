@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import axios from 'axios';
 import '../Styles/tablesRender.css';
+import AddButton from './AddButton';
 
 const ProductsTable = () => {
   const [products, setProducts] = useState([]);
@@ -37,7 +38,7 @@ const ProductsTable = () => {
       <div className="d-flex justify-content-between mb-3">
         <h4>Products</h4>
         <div>
-        <Button className="purple-button">Add New</Button>
+          <AddButton />
         </div>
       </div>
 
@@ -58,11 +59,16 @@ const ProductsTable = () => {
           {products.map(product => (
             <tr key={product.id}>
               <td>
-                <img src="https://via.placeholder.com/50" alt="Product Avatar" className="rounded-circle" />
+                <img 
+                  src={product.imageURL || 'https://via.placeholder.com/50'} // Fetch image from MongoDB, fallback to placeholder if imageURL is missing
+                  alt="Product" 
+                  className="rounded-circle" 
+                  style={{ width: '50px', height: '50px' }} // Set image size to fit in the table
+                />
               </td>
               <td>{product.name}</td>
               <td>{product.description}</td>
-              <td>${product.price.toFixed(2)}</td>
+              <td>Rs.{product.price.toFixed(2)}</td>
               <td>{product.category}</td>
               <td>{product.stock}</td>
               <td>{product.isActive ? 'Active' : 'Inactive'}</td>

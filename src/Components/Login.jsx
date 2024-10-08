@@ -46,8 +46,8 @@ const LoginComponent = () => {
     return (
         <div className="login-container">
             <div className="login-left">
-                <h1>Normy Clothing</h1>
-                <p>Your perfect fashion partner!</p>
+                <h1>Normy Tronics</h1>
+                <p>Your perfect Tech partner!</p>
             </div>
             <div className="login-right">
                 <div className="login-form">

@@ -21,7 +21,7 @@ const Sidebar = ({ setSelectedComponent, userRole }) => {
   return (
     <div className="d-flex flex-column vh-100 p-3 sidebar" style={{ width: '250px' }}>
       <a href="/" className="text-decoration-none text-white mb-4">
-        <h4>Normy Clothes</h4>
+        <h4>Normy Tronics</h4>
       </a>
       <ul className="nav nav-pills flex-column mb-auto">
         {/* Product Listing is visible to everyone */}
@@ -107,6 +107,19 @@ const Sidebar = ({ setSelectedComponent, userRole }) => {
             </a>
           </li>
         </>
+        )}
+
+        {/* Notifications link visible to Administrator, CSR, and Vendor */}
+        {(userRole === 'Administrator' || userRole === 'Vendor' || userRole === 'CSR') && (
+          <li className="nav-item">
+            <a
+              href="#"
+              className={`nav-link ${activeItem === 'Notifications' ? 'active' : ''}`}
+              onClick={() => handleItemClick('Notifications')}
+            >
+              Notifications
+            </a>
+          </li>
         )}
 
         <hr />
