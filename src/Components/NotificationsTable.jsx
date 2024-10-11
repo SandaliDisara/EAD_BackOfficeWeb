@@ -27,11 +27,25 @@ const NotificationsTable = () => {
     fetchNotifications();
   }, [baseUrl]);
 
-  // Function to handle the approval of order cancel
-  const handleApproveCancel = (notificationId) => {
-    // Implement the logic to approve the order cancellation
-    console.log(`Approved cancellation for notification ID: ${notificationId}`);
-    // Add your API call logic here
+  // Function to handle the approval of order cancellation
+  const handleApproveCancel = async (notificationId, orderId) => {
+    const isConfirmed = window.confirm("Are you sure you want to approve the order cancellation?");
+    if (!isConfirmed) return;
+
+    try {
+      // Call the backend API to delete the order
+      await axios.delete(`${baseUrl}api/Order/${orderId}`);
+      console.log(`Order ID: ${orderId} has been cancelled.`);
+
+      // Optionally, remove the notification from the state after successful deletion
+      setNotifications(notifications.filter(notification => notification.notificationId !== notificationId));
+
+      // Show success message (optional)
+      alert('Order cancellation has been approved and the order has been cancelled.');
+    } catch (error) {
+      console.error('Error cancelling order:', error);
+      alert('There was an error cancelling the order. Please try again.');
+    }
   };
 
   return (
@@ -60,7 +74,7 @@ const NotificationsTable = () => {
                   {notification.title === "Order Cancelling" && ( // Conditional rendering of the button
                     <Button 
                       variant="success" 
-                      onClick={() => handleApproveCancel(notification.notificationId)}
+                      onClick={() => handleApproveCancel(notification.notificationId, notification.orderId)} // Pass orderId to the handler
                     >
                       Approve Order Cancel
                     </Button>

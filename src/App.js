@@ -11,8 +11,8 @@ import AllOrderManagement from './Components/AllOrderManagement';
 import VendorOrderManagement from './Components/VendorOrderManagement';
 import CustomerFeedbackTable from './Components/CustomerFeedbackTable';
 import NotificationsTable from './Components/NotificationsTable';
+import VendorProductsTable from './Components/VendorProductsTable';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 
 const App = () => {
   const [selectedComponent, setSelectedComponent] = useState('Products');
@@ -51,17 +51,24 @@ const App = () => {
         return userRole === 'Vendor' ? <CustomerFeedbackTable /> : <ProductsTable />;
       case 'Notifications': 
         return userRole === 'Administrator' || userRole === 'CSR' || userRole === 'Vendor' ? <NotificationsTable /> : <ProductsTable />;
+      case 'VendorProducts':
+        return userRole === 'Vendor' ? <VendorProductsTable /> : <VendorProductsTable />;
       default:
         return <ProductsTable />;
     }
   };
 
   return (
-    <div className="d-flex">
+    <div className="d-flex" style={{ height: '100vh' }}>
+      {/* Sidebar remains fixed */}
       <Sidebar setSelectedComponent={setSelectedComponent} userRole={userRole} />
-      <div className="w-100">
+      
+      <div className="w-100 d-flex flex-column">
+        {/* Header remains fixed */}
         <Header username={username} role={userRole} />
-        <div className="container-fluid">
+
+        {/* Main content area is scrollable */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
           {renderComponent()}
         </div>
       </div>

@@ -24,16 +24,18 @@ const Sidebar = ({ setSelectedComponent, userRole }) => {
         <h4>Normy Tronics</h4>
       </a>
       <ul className="nav nav-pills flex-column mb-auto">
-        {/* Product Listing is visible to everyone */}
-        <li className="nav-item">
-          <a
-            href="#"
-            className={`nav-link ${activeItem === 'Products' ? 'active' : ''}`}
-            onClick={() => handleItemClick('Products')}
-          >
-            Product Listing
-          </a>
-        </li>
+        {/* Product Listing is visible to Administrator and CSR only */}
+        {(userRole === 'Administrator' || userRole === 'CSR') && (
+          <li className="nav-item">
+            <a
+              href="#"
+              className={`nav-link ${activeItem === 'Products' ? 'active' : ''}`}
+              onClick={() => handleItemClick('Products')}
+            >
+              Product Listing
+            </a>
+          </li>
+        )}
 
         {/* Administrator and CSR-specific items */}
         {(userRole === 'Administrator' || userRole === 'CSR') && (
@@ -104,6 +106,15 @@ const Sidebar = ({ setSelectedComponent, userRole }) => {
               onClick={() => handleItemClick('CustomerFeedback')}
             >
               Customer Feedback
+            </a>
+          </li>
+          <li className="nav-item">
+            <a
+              href="#"
+              className={`nav-link ${activeItem === 'VendorProducts' ? 'active' : ''}`} // Vendor Products link
+              onClick={() => handleItemClick('VendorProducts')}
+            >
+              Vendor Products
             </a>
           </li>
         </>

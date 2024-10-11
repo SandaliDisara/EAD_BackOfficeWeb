@@ -25,16 +25,6 @@ const AllOrderManagement = () => {
     fetchOrders();
   }, []);
 
-  // Handle order deletion
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`${baseUrl}api/Order/${id}`); // Adjust the delete API endpoint as per your backend
-      setOrders(orders.filter(order => order.id !== id)); // Remove deleted order from the UI
-    } catch (error) {
-      console.error('Error deleting order:', error);
-    }
-  };
-
   // Handle order status change initiation
   const handleStatusChange = (order, status) => {
     setSelectedOrder(order);
@@ -81,7 +71,6 @@ const AllOrderManagement = () => {
             <th>Status</th>
             <th>Order Date</th>
             <th>Products</th>
-            <th>Operations</th>
           </tr>
         </thead>
         <tbody>
@@ -114,9 +103,6 @@ const AllOrderManagement = () => {
                     </li>
                   ))}
                 </ul>
-              </td>
-              <td>
-                <Button variant="link" className="text-danger" onClick={() => handleDelete(order.id)}>Delete</Button>
               </td>
             </tr>
           ))}
